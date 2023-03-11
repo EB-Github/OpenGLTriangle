@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <tchar.h>
-#include "oGLWindow.h"
-
+#include "GUI\oGLWindow.h"
+#include <glad/wgl.h>
+#include <glad/gl.h>
+using namespace std;
 HINSTANCE hInst;
 LRESULT CALLBACK WndProc(
 	_In_ HWND   hWnd,
@@ -21,19 +23,17 @@ int WINAPI WinMain(
 	//Create the Window
 	static TCHAR szWindowClass[] = _T("OpenGLTriangle");
 	static TCHAR szTitle[] = _T("An OpenGL Learning Project");
-
+	static const GLfloat clear_color[] = { 0.0f, 0.0f, 1.0f, 1.0f };
 
 	hInst = hInstance;
 
-	oGLWindow hWnd = oGLWindow(WndProc, hInstance, nCmdShow, szWindowClass, szTitle);
-
-	
+	GUI::oGLWindow oGLWnd = GUI::oGLWindow(WndProc, hInstance, nCmdShow, szWindowClass, szTitle);
 
 	//Handle Messages
+	bool quit = false;
 	MSG msg;
-	while (GetMessage(&msg, NULL, 0, 0)) {
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
+	while (!quit) {
+		quit = oGLWnd.Refresh(&msg);
 	}
 
 	return (int)msg.wParam;
@@ -42,27 +42,13 @@ int WINAPI WinMain(
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	
-	//Hello world.
-	PAINTSTRUCT ps;
 	HDC hdc;
-	TCHAR greeting[] = _T("Hello, Windows desktop!");
 
 	switch (message)
 	{
-	case WM_PAINT:
-		hdc = BeginPaint(hWnd, &ps);
-
-		// Here your application is laid out.
-		// For this introduction, we just print out "Hello, Windows desktop!"
-		// in the top left corner.
-		TextOut(hdc,
-			5, 5,
-			greeting, _tcslen(greeting));
-		// End application-specific layout section.
-
-		EndPaint(hWnd, &ps);
-		break;
 	case WM_DESTROY:
+	case WM_QUIT:
+	case WM_CLOSE:
 		PostQuitMessage(0);
 		break;
 	default:
