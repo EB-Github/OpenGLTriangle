@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <tchar.h>
+#include "oGLWindow.h"
 
 HINSTANCE hInst;
 LRESULT CALLBACK WndProc(
@@ -21,58 +22,12 @@ int WINAPI WinMain(
 	static TCHAR szWindowClass[] = _T("OpenGLTriangle");
 	static TCHAR szTitle[] = _T("An OpenGL Learning Project");
 
-	//Set up the window structure
-	WNDCLASSEX wcex;
-	wcex.cbSize = sizeof(WNDCLASSEX);
-	wcex.style = CS_HREDRAW | CS_VREDRAW;
-	wcex.lpfnWndProc = WndProc;
-	wcex.cbClsExtra = 0;
-	wcex.cbWndExtra = 0;
-	wcex.hInstance = hInstance;
-	wcex.hIcon = LoadIcon(wcex.hInstance, IDI_APPLICATION);
-	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-	wcex.lpszMenuName = NULL;
-	wcex.lpszClassName = szWindowClass;
-	wcex.hIconSm = LoadIcon(wcex.hInstance, IDI_APPLICATION);
-
-	//Register the class
-	if (!RegisterClassEx(&wcex)) {
-		MessageBoxW(NULL,
-			_T("Call to RegisterClassEx failed!"),
-			_T("Windows Desktop Guided Tour"),
-			NULL);
-		return 1;
-	}
 
 	hInst = hInstance;
 
-	HWND hWnd = CreateWindowEx(
-		WS_EX_OVERLAPPEDWINDOW, 
-		szWindowClass, //Name of the Application
-		szTitle,	//Title bar text
-		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT,
-		CW_USEDEFAULT,
-		500, //Width
-		100, //Length
-		NULL,
-		NULL,
-		hInstance,
-		NULL
-	);
+	oGLWindow hWnd = oGLWindow(WndProc, hInstance, nCmdShow, szWindowClass, szTitle);
 
-	if (!hWnd) {
-		MessageBox(NULL,
-			_T("Call to CreateWindowEx failed!"),
-			_T("Open GL Learning Project"),
-			NULL);
-		return 1;
-	}
-
-	//Display the window
-	ShowWindow(hWnd, nCmdShow);
-	UpdateWindow(hWnd);
+	
 
 	//Handle Messages
 	MSG msg;
