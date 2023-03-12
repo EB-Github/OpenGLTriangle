@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <tchar.h>
-#include "GUI\oGLWindow.h"
+#include "GUI/oGLWindow.h"
 #include <glad/wgl.h>
 #include <glad/gl.h>
 using namespace std;
@@ -29,7 +29,7 @@ int WINAPI WinMain(
 
 	GUI::oGLWindow oGLWnd = GUI::oGLWindow(WndProc, hInstance, nCmdShow, szWindowClass, szTitle);
 
-	//Handle Messages
+	//The loop
 	bool quit = false;
 	MSG msg;
 	while (!quit) {

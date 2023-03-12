@@ -27,6 +27,12 @@
     <ClCompile Include="libraries\glad\src\wgl.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\GLGraphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\oGLWindow.h">
@@ -39,6 +45,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libraries\glad\include\KHR\khrplatform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\GLGraphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

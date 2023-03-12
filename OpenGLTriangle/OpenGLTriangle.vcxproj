@@ -141,16 +141,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Graphics\GLGraphics.cpp" />
     <ClCompile Include="GUI\oGLWindow.cpp" />
     <ClCompile Include="libraries\glad\src\gl.c" />
     <ClCompile Include="libraries\glad\src\wgl.c" />
+    <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Graphics\GLGraphics.h" />
     <ClInclude Include="GUI\oGLWindow.h" />
     <ClInclude Include="libraries\glad\include\glad\gl.h" />
     <ClInclude Include="libraries\glad\include\glad\wgl.h" />
     <ClInclude Include="libraries\glad\include\KHR\khrplatform.h" />
+    <ClInclude Include="Math\Vector4.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

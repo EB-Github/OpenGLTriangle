@@ -3,6 +3,7 @@
 #include <tchar.h>
 #include <glad/wgl.h>
 #include <glad/gl.h>
+#include "../Graphics/GLGraphics.h"
 using namespace GUI;
 oGLWindow::oGLWindow(WNDPROC WndProc, HINSTANCE hInstance, int nCmdShow, TCHAR szWindowClass[], TCHAR szTitle[])
 {
@@ -38,8 +39,8 @@ oGLWindow::oGLWindow(WNDPROC WndProc, HINSTANCE hInstance, int nCmdShow, TCHAR s
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,
 		CW_USEDEFAULT,
-		500, //Width
-		100, //Length
+		800, //Width
+		600, //Length
 		NULL,
 		NULL,
 		hInstance,
@@ -129,7 +130,7 @@ oGLWindow::~oGLWindow()
 bool GUI::oGLWindow::Refresh(MSG* msg)
 {
 	MSG msgRef = *msg;
-	const GLfloat clear_color[] = { 0.0f, 0.0f, 1.0f, 1.0f };
+	const GLfloat clear_color[] = { 0.0f,  0.0f,  0.0f,  0.0f };
 	while (PeekMessage(&msgRef, hWnd, 0, 0, PM_REMOVE)) {
 		TranslateMessage(&msgRef);
 		DispatchMessage(&msgRef);
@@ -140,8 +141,43 @@ bool GUI::oGLWindow::Refresh(MSG* msg)
 
 
 	}
-	glClearColor(clear_color[0], clear_color[1], clear_color[2], clear_color[3]);
-	glClear(GL_COLOR_BUFFER_BIT);
+	GLuint VertexArrayID;
+	glGenVertexArrays(1, &VertexArrayID);
+	glBindVertexArray(VertexArrayID);
+	static const GLfloat g_vertex_buffer_data[] = {
+		-0.25f, -0.25f, 0.0f,
+		0.25f, -0.25f, 0.0f,
+		0.0f,  0.25f, 0.0f
+	};
+
+	math::Vector4 vec = math::Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+	GLGraphics gph = GLGraphics(vec);
+	gph.Clear();
+
+	// This will identify our vertex buffer
+	GLuint vertexbuffer;
+	// Generate 1 buffer, put the resulting identifier in vertexbuffer
+	glGenBuffers(1, &vertexbuffer);
+	// The following commands will talk about our 'vertexbuffer' buffer
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	// Give our vertices to OpenGL.
+	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+	// 1st attribute buffer : vertices
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glVertexAttribPointer(
+		0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+		3,                  // size
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		0,                  // stride
+		(void*)0            // array buffer offset
+	);
+	// Draw the triangle !
+	glDrawArrays(GL_TRIANGLES, 0, 4); // Starting from vertex 0; 3 vertices total -> 1 triangle
+	glDisableVertexAttribArray(0);
+
+
 	SwapBuffers(hdc);
 	return false;
 }
