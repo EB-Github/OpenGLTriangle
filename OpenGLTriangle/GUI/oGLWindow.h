@@ -16,6 +16,7 @@ namespace GUI {
 		HDC hdc = NULL;
 		GLGraphics gph = GLGraphics();
 		math::Vector4 vec;
+		GLuint m_GLSL;
 	};
 
 };

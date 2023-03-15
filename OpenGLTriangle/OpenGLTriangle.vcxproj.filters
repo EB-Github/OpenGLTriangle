@@ -36,6 +36,9 @@
     <ClCompile Include="Math\Rectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\GLShaders.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\oGLWindow.h">
@@ -59,5 +62,12 @@
     <ClInclude Include="Math\Rectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\GLShaders.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\Shaders\test.vert" />
+    <None Include="Graphics\Shaders\test.frag" />
   </ItemGroup>
 </Project>

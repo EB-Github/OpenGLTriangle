@@ -4,6 +4,7 @@
 #include <glad/wgl.h>
 #include <glad/gl.h>
 #include "../Graphics/GLGraphics.h"
+#include "../Graphics/GLShaders.h"
 using namespace GUI;
 oGLWindow::oGLWindow(WNDPROC WndProc, HINSTANCE hInstance, int nCmdShow, TCHAR szWindowClass[], TCHAR szTitle[])
 {
@@ -118,6 +119,8 @@ oGLWindow::oGLWindow(WNDPROC WndProc, HINSTANCE hInstance, int nCmdShow, TCHAR s
 
 	vec = math::Vector4(0.0f, 0.0f, 1.0f, 1.0f);
 	gph = GLGraphics(vec);
+	GLuint programID = GLShaders::LoadShaders("Graphics/Shaders/test.vert", "Graphics/Shaders/test.frag");
+	m_GLSL = programID;
 	//gph.setWindow(getWindowSize());
 	//Display the window
 	ShowWindow(hWnd, nCmdShow);
@@ -145,6 +148,7 @@ bool GUI::oGLWindow::Refresh(MSG* msg)
 	}
 	gph.setVertexArrays();
 	gph.Clear();
+	glUseProgram(m_GLSL);
 	gph.setVertexBuffers();
 	gph.drawTriangle();
 	gph.cleanUp();

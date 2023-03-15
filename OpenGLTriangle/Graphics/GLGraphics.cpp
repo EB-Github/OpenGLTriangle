@@ -6,7 +6,7 @@
 bool GLGraphics::Clear()
 {
 	glClearColor(m_vec.m_x, m_vec.m_y, m_vec.m_z, m_vec.m_w);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	return true;
 }
 
