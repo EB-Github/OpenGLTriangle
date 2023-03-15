@@ -117,7 +117,7 @@ oGLWindow::oGLWindow(WNDPROC WndProc, HINSTANCE hInstance, int nCmdShow, TCHAR s
 		return;
 	}
 
-	vec = math::Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+	vec = math::Vector4(0.0f, 0.0f, 0.0f, 0.0f);
 	gph = GLGraphics(vec);
 	GLuint programID = GLShaders::LoadShaders("Graphics/Shaders/test.vert", "Graphics/Shaders/test.frag");
 	m_GLSL = programID;
